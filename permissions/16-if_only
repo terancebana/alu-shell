@@ -1,8 +1,2 @@
 #!/bin/bash
-current_owner=$(stat -c '%U' hello)
-if [ "$current_owner" = "guillaume" ]; then
-    chown vincent hello
-    echo "Owner of 'hello' changed from guillaume to vincent."
-else
-    echo "Owner of 'hello' is not guillaume. No change made."
-fi
+stat -c '%U' hello 2>/dev/null | awk '/guillaume/{system("sudo chown vincent hello")}'
